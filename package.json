@@ -1,6 +1,6 @@
 {
   "name": "react-guided-webtour",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Interactive guided tour component for React with HeroUI",
   "private": false,
   "type": "module",
