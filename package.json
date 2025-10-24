@@ -2,7 +2,7 @@
   "name": "react-guided-webtour",
   "version": "1.0.0",
   "description": "Interactive guided tour component for React with HeroUI",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -29,5 +29,23 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.15",
     "vite": "^5.2.0"
-  }
+  },
+  "main": "src/main.jsx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rehan2244/react-guided-webtour.git"
+  },
+  "keywords": [
+    "react",
+    "react-webtour",
+    "webtour",
+    "react-guided-webtour",
+    "react-webtour"
+  ],
+  "author": "Rehan2244",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rehan2244/react-guided-webtour/issues"
+  },
+  "homepage": "https://github.com/Rehan2244/react-guided-webtour#readme"
 }
