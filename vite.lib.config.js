@@ -17,14 +17,12 @@ export default defineConfig({
       fileName: (format) => `react-guided-webtour.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@heroui/react', 'framer-motion', 'clsx'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'clsx'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'react/jsx-runtime',
-          '@heroui/react': 'HeroUI',
-          'framer-motion': 'FramerMotion',
           'clsx': 'clsx'
         },
         assetFileNames: (assetInfo) => {

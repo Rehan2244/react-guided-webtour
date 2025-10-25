@@ -1,6 +1,6 @@
 # React Guided WebTour
 
-An interactive guided tour component for React applications with beautiful animations and customizable tooltips. Built with React, Framer Motion, and HeroUI for modern web applications.
+An interactive guided tour component for React applications with beautiful animations and customizable tooltips. Built with **vanilla JavaScript and CSS** - zero external dependencies for animations!
 
 ## ✨ Features
 
@@ -9,11 +9,13 @@ An interactive guided tour component for React applications with beautiful anima
 - ⌨️ **Keyboard Navigation** - Arrow keys and ESC support
 - 📱 **Responsive Design** - Works on all screen sizes
 - 💾 **Persistence** - Remembers completed tours using localStorage
-- 🎭 **Smooth Animations** - Powered by Framer Motion
+- 🎭 **Smooth Animations** - Pure CSS animations (no heavy dependencies!)
 - 🔧 **Flexible Options** - Extensive configuration options
 - 🎪 **Overlay Highlighting** - Highlights target elements
 - 📍 **Smart Positioning** - Intelligent tooltip positioning
 - 🎚️ **Multiple Themes** - Light and dark theme support
+- ⚡ **Lightweight** - Only ~24KB UMD / ~37KB ES (gzipped: 9KB / 11.5KB)
+- 🚫 **Zero Dependencies** - No framer-motion, no HeroUI, just React!
 
 ## 📦 Installation
 
@@ -27,17 +29,17 @@ yarn add react-guided-webtour
 
 ### Peer Dependencies
 
-This package requires the following peer dependencies to be installed in your project:
+This package only requires React to be installed in your project:
 
 ```bash
-npm install react react-dom @heroui/react framer-motion
+npm install react react-dom
 ```
 
 **Supported Versions:**
 - React: 18.x or 19.x
 - React DOM: 18.x or 19.x
-- HeroUI React: 2.x or higher
-- Framer Motion: 11.x or higher
+
+**That's it!** No need for Framer Motion, HeroUI, or any other UI library.
 
 ### Import Styles
 

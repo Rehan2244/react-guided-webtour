@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Button, Progress, Chip } from '@heroui/react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
+import './Tooltip.css';
 
 const Tooltip = ({
   step,
@@ -17,6 +16,23 @@ const Tooltip = ({
 }) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [placement, setPlacement] = useState('bottom');
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const tooltipRef = useRef(null);
+
+  // Handle animations
+  useEffect(() => {
+    if (step) {
+      setIsAnimating(true);
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        setIsAnimating(false);
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      setIsVisible(false);
+    }
+  }, [step, currentStep]);
 
   useEffect(() => {
     if (!targetRect || !step) return;
@@ -87,160 +103,134 @@ const Tooltip = ({
 
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
-  const getMotionVariants = () => {
-    const baseVariants = {
-      initial: { opacity: 0, scale: 0.85 },
-      animate: { opacity: 1, scale: 1 },
-      exit: { opacity: 0, scale: 0.85 }
-    };
-
-    const directionalVariants = {
-      bottom: {
-        initial: { ...baseVariants.initial, y: -20 },
-        animate: { ...baseVariants.animate, y: 0 },
-        exit: { ...baseVariants.exit, y: -20 }
-      },
-      top: {
-        initial: { ...baseVariants.initial, y: 20 },
-        animate: { ...baseVariants.animate, y: 0 },
-        exit: { ...baseVariants.exit, y: 20 }
-      },
-      left: {
-        initial: { ...baseVariants.initial, x: 20 },
-        animate: { ...baseVariants.animate, x: 0 },
-        exit: { ...baseVariants.exit, x: 20 }
-      },
-      right: {
-        initial: { ...baseVariants.initial, x: -20 },
-        animate: { ...baseVariants.animate, x: 0 },
-        exit: { ...baseVariants.exit, x: -20 }
-      },
-      center: baseVariants
-    };
-
-    return directionalVariants[placement] || baseVariants;
-  };
-
-  const variants = getMotionVariants();
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentStep}
-        initial={variants.initial}
-        animate={variants.animate}
-        exit={variants.exit}
-        transition={{ 
-          type: "spring",
-          stiffness: 400,
-          damping: 30,
-          mass: 0.8
-        }}
-        className="fixed z-[9999]"
-        style={{
-          top: `${position.top}px`,
-          left: `${position.left}px`,
-          width: '360px',
-        }}
-      >
-        <Card
-          className={clsx(
-            'shadow-2xl',
-            theme === 'dark' ? 'dark bg-gray-800' : 'bg-white'
-          )}
-        >
-          <CardHeader className="flex justify-between items-center pb-2">
-            <h3 className="text-lg font-semibold">{step.title}</h3>
-            <Chip size="sm" variant="flat" color="primary">
-              {currentStep + 1} / {totalSteps}
-            </Chip>
-          </CardHeader>
-          
-          <CardBody className="py-2">
-            <p className="text-default-600">{step.content}</p>
-            {step.media && (
-              <div className="mt-3">
-                {step.media.type === 'image' && (
-                  <img
-                    src={step.media.url}
-                    alt={step.media.alt || 'Tour media'}
-                    className="rounded-lg w-full"
-                  />
-                )}
-                {step.media.type === 'video' && (
-                  <video
-                    src={step.media.url}
-                    controls
-                    className="rounded-lg w-full"
-                  />
-                )}
-              </div>
-            )}
-          </CardBody>
-          
-          <CardFooter className="flex flex-col gap-3">
-            <Progress
-              size="sm"
-              value={progress}
-              color="primary"
-              className="w-full"
-            />
-            
-            <div className="flex justify-between items-center w-full">
-              <Button
-                size="sm"
-                variant="light"
-                onPress={onSkip}
-                className="text-default-500"
-              >
-                Skip tour
-              </Button>
-              
-              <div className="flex gap-2">
-                {!isFirstStep && (
-                  <Button
-                    size="sm"
-                    variant="flat"
-                    onPress={onPrev}
-                  >
-                    Previous
-                  </Button>
-                )}
-                <Button
-                  size="sm"
-                  color="primary"
-                  onPress={onNext}
-                >
-                  {isLastStep ? 'Finish' : 'Next'}
-                </Button>
-              </div>
-            </div>
-          </CardFooter>
-        </Card>
+    <div
+      ref={tooltipRef}
+      key={currentStep}
+      className={clsx(
+        'guided-tour-tooltip fixed z-[9999] transition-all duration-300',
+        isVisible ? 'guided-tour-tooltip-visible' : 'guided-tour-tooltip-hidden',
+        `guided-tour-tooltip-${placement}`,
+        theme === 'dark' ? 'guided-tour-tooltip-dark' : 'guided-tour-tooltip-light'
+      )}
+      style={{
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+        width: '360px',
+      }}
+    >
+      <div className={clsx(
+        'guided-tour-card rounded-xl shadow-2xl overflow-hidden',
+        theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+      )}>
+        {/* Header */}
+        <div className="guided-tour-card-header flex justify-between items-center p-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold">{step.title}</h3>
+          <span className={clsx(
+            'guided-tour-chip inline-flex items-center px-3 py-1 rounded-full text-xs font-medium',
+            theme === 'dark' 
+              ? 'bg-blue-900 text-blue-200' 
+              : 'bg-blue-100 text-blue-800'
+          )}>
+            {currentStep + 1} / {totalSteps}
+          </span>
+        </div>
         
-        {/* Arrow pointer */}
-        <div
-          className={clsx(
-            'absolute w-0 h-0',
-            theme === 'dark' ? 'border-gray-800' : 'border-white',
-            {
-              // Arrow pointing up (tooltip is below target)
-              'top-full left-1/2 -translate-x-1/2 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent':
-                placement === 'top',
-              // Arrow pointing down (tooltip is above target)
-              'bottom-full left-1/2 -translate-x-1/2 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent':
-                placement === 'bottom',
-              // Arrow pointing left (tooltip is on the right of target)
-              'left-full top-1/2 -translate-y-1/2 border-t-[10px] border-b-[10px] border-l-[10px] border-t-transparent border-b-transparent':
-                placement === 'right',
-              // Arrow pointing right (tooltip is on the left of target)
-              'right-full top-1/2 -translate-y-1/2 border-t-[10px] border-b-[10px] border-r-[10px] border-t-transparent border-b-transparent':
-                placement === 'left',
-            }
+        {/* Body */}
+        <div className="guided-tour-card-body p-4 py-3">
+          <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+            {step.content}
+          </p>
+          {step.media && (
+            <div className="mt-3">
+              {step.media.type === 'image' && (
+                <img
+                  src={step.media.url}
+                  alt={step.media.alt || 'Tour media'}
+                  className="rounded-lg w-full"
+                />
+              )}
+              {step.media.type === 'video' && (
+                <video
+                  src={step.media.url}
+                  controls
+                  className="rounded-lg w-full"
+                />
+              )}
+            </div>
           )}
-        />
-      </motion.div>
-    </AnimatePresence>
+        </div>
+        
+        {/* Footer */}
+        <div className="guided-tour-card-footer flex flex-col gap-3 p-4 pt-2">
+          {/* Progress Bar */}
+          <div className="guided-tour-progress w-full">
+            <div className={clsx(
+              'guided-tour-progress-track h-2 rounded-full overflow-hidden',
+              theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'
+            )}>
+              <div 
+                className="guided-tour-progress-bar h-full bg-blue-500 transition-all duration-300 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center w-full">
+            <button
+              onClick={onSkip}
+              className={clsx(
+                'guided-tour-button guided-tour-button-skip px-3 py-2 text-sm rounded-lg transition-all duration-200',
+                theme === 'dark'
+                  ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+              )}
+            >
+              Skip tour
+            </button>
+            
+            <div className="flex gap-2">
+              {!isFirstStep && (
+                <button
+                  onClick={onPrev}
+                  className={clsx(
+                    'guided-tour-button guided-tour-button-prev px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
+                    theme === 'dark'
+                      ? 'bg-gray-700 text-white hover:bg-gray-600'
+                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                  )}
+                >
+                  Previous
+                </button>
+              )}
+              <button
+                onClick={onNext}
+                className={clsx(
+                  'guided-tour-button guided-tour-button-next px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
+                  'bg-blue-500 text-white hover:bg-blue-600 active:scale-95'
+                )}
+              >
+                {isLastStep ? 'Finish' : 'Next'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Arrow pointer */}
+      <div
+        className={clsx(
+          'guided-tour-arrow absolute w-0 h-0',
+          theme === 'dark' ? 'arrow-dark' : 'arrow-light',
+          {
+            'arrow-top': placement === 'top',
+            'arrow-bottom': placement === 'bottom',
+            'arrow-right': placement === 'right',
+            'arrow-left': placement === 'left',
+          }
+        )}
+      />
+    </div>
   );
 };
 
