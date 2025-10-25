@@ -25,6 +25,20 @@ npm install react-guided-webtour
 yarn add react-guided-webtour
 ```
 
+### Peer Dependencies
+
+This package requires the following peer dependencies to be installed in your project:
+
+```bash
+npm install react react-dom @heroui/react framer-motion
+```
+
+**Supported Versions:**
+- React: 18.x or 19.x
+- React DOM: 18.x or 19.x
+- HeroUI React: 2.x or higher
+- Framer Motion: 11.x or higher
+
 ### Import Styles
 
 Don't forget to import the CSS file in your app:

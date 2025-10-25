@@ -19,7 +19,7 @@ const GuidedTour = ({
     if (autoStart && !tour.isCompleted) {
       tour.startTour();
     }
-  }, [autoStart]);
+  }, [autoStart, tour.isCompleted, tour.startTour]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
