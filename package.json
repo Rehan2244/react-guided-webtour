@@ -1,6 +1,6 @@
 {
   "name": "react-guided-webtour",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Interactive guided tour component for React with HeroUI",
   "private": false,
   "type": "module",
@@ -32,13 +32,27 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "@heroui/react": ">=2.0.0",
+    "framer-motion": ">=11.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "@heroui/react": {
+      "optional": false
+    },
+    "framer-motion": {
+      "optional": false
+    }
   },
   "dependencies": {
-    "@heroui/react": "^2.4.24",
-    "clsx": "^2.1.1",
-    "framer-motion": "^11.11.17"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
