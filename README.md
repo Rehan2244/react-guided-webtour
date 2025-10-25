@@ -25,6 +25,29 @@ npm install react-guided-webtour
 yarn add react-guided-webtour
 ```
 
+### Import Styles
+
+Don't forget to import the CSS file in your app:
+
+```jsx
+import 'react-guided-webtour/style.css';
+```
+
+Or in your main CSS/SCSS file:
+
+```css
+@import 'react-guided-webtour/style.css';
+```
+
+### TypeScript Support
+
+This package includes TypeScript definitions out of the box. No additional `@types` package needed!
+
+```typescript
+import { GuidedTour, Step, TourOptions } from 'react-guided-webtour';
+import 'react-guided-webtour/style.css';
+```
+
 ```bash
 pnpm add react-guided-webtour
 ```
