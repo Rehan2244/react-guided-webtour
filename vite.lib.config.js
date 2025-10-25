@@ -1,6 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
@@ -12,23 +17,28 @@ export default defineConfig({
       fileName: (format) => `react-guided-tour.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@heroui/react', 'framer-motion', 'clsx'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'react/jsx-runtime',
+          '@heroui/react': 'HeroUI',
+          'framer-motion': 'FramerMotion',
+          'clsx': 'clsx'
         },
-        assetFileNames: 'react-guided-tour.[ext]'
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') {
+            return 'react-guided-tour.css'
+          }
+          return assetInfo.name
+        }
       }
     },
     cssCodeSplit: false,
     sourcemap: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    minify: 'esbuild',
+    outDir: 'dist',
+    emptyOutDir: true
   }
 })
