@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './ToggleButton.css';
 
 const ToggleButton = ({ onClick, isCompleted, position = 'bottom-right', show = true }) => {
   const [isVisible, setIsVisible] = useState(false);

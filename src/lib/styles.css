@@ -1,10 +1,5 @@
 /* React Guided WebTour Styles */
 
-/* Import component styles */
-@import '../components/Tooltip.css';
-@import '../components/Overlay.css';
-@import '../components/ToggleButton.css';
-
 /* Base styles */
 :root {
   --tour-overlay-bg: rgba(0, 0, 0, 0.7);
@@ -12,24 +7,496 @@
   --tour-tooltip-z-index: 9999;
 }
 
-/* Global tour styles */
+/* Reset and base */
 * {
   box-sizing: border-box;
 }
 
-/* Ensure smooth animations */
-.guided-tour-tooltip,
-.guided-tour-overlay,
-.guided-tour-toggle {
+/* Utility Classes (Tailwind replacements) */
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.flex-col { flex-direction: column; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-full { border-radius: 9999px; }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+.shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+.overflow-hidden { overflow: hidden; }
+.transition-all { transition: all 0.2s; }
+.duration-200 { transition-duration: 200ms; }
+.duration-300 { transition-duration: 300ms; }
+.ease-out { transition-timing-function: ease-out; }
+.cursor-pointer { cursor: pointer; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+
+/* Padding */
+.p-4 { padding: 1rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.pb-2 { padding-bottom: 0.5rem; }
+.pt-2 { padding-top: 0.5rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+
+/* Margin */
+.mt-3 { margin-top: 0.75rem; }
+.-top-1 { top: -0.25rem; }
+.-right-1 { right: -0.25rem; }
+
+/* Text */
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+.text-white { color: rgb(255, 255, 255); }
+.text-gray-900 { color: rgb(17, 24, 39); }
+.text-gray-600 { color: rgb(75, 85, 99); }
+.text-gray-500 { color: rgb(107, 114, 128); }
+.text-gray-400 { color: rgb(156, 163, 175); }
+.text-gray-300 { color: rgb(209, 213, 219); }
+.text-gray-800 { color: rgb(31, 41, 55); }
+.text-gray-700 { color: rgb(55, 65, 81); }
+
+/* Background Colors */
+.bg-white { background-color: rgb(255, 255, 255); }
+.bg-gray-800 { background-color: rgb(31, 41, 55); }
+.bg-gray-700 { background-color: rgb(55, 65, 81); }
+.bg-gray-600 { background-color: rgb(75, 85, 99); }
+.bg-gray-200 { background-color: rgb(229, 231, 235); }
+.bg-gray-100 { background-color: rgb(243, 244, 246); }
+.bg-blue-500 { background-color: rgb(59, 130, 246); }
+.bg-blue-600 { background-color: rgb(37, 99, 235); }
+.bg-blue-700 { background-color: rgb(29, 78, 216); }
+.bg-blue-100 { background-color: rgb(219, 234, 254); }
+.bg-blue-900 { background-color: rgb(30, 58, 138); }
+.bg-green-500 { background-color: rgb(34, 197, 94); }
+.text-blue-800 { color: rgb(30, 64, 175); }
+.text-blue-200 { color: rgb(191, 219, 254); }
+
+/* Borders */
+.border-b { border-bottom-width: 1px; }
+.border-gray-200 { border-color: rgb(229, 231, 235); }
+.border-gray-700 { border-color: rgb(55, 65, 81); }
+
+/* Dark mode variants */
+.dark .dark\:border-gray-700 { border-color: rgb(55, 65, 81); }
+.dark .dark\:text-gray-200 { color: rgb(229, 231, 235); }
+.dark .dark\:text-gray-300 { color: rgb(209, 213, 219); }
+.dark .dark\:bg-gray-700 { background-color: rgb(55, 65, 81); }
+
+/* Hover states */
+.hover\:text-gray-700:hover { color: rgb(55, 65, 81); }
+.hover\:text-gray-200:hover { color: rgb(229, 231, 235); }
+.hover\:bg-gray-100:hover { background-color: rgb(243, 244, 246); }
+.hover\:bg-gray-200:hover { background-color: rgb(229, 231, 235); }
+.hover\:bg-gray-600:hover { background-color: rgb(75, 85, 99); }
+.hover\:bg-gray-700:hover { background-color: rgb(55, 65, 81); }
+.hover\:bg-blue-600:hover { background-color: rgb(37, 99, 235); }
+.active\:scale-95:active { transform: scale(0.95); }
+
+/* Z-index */
+.z-\[9998\] { z-index: 9998; }
+.z-\[9999\] { z-index: 9999; }
+.z-\[1000\] { z-index: 1000; }
+.z-10 { z-index: 10; }
+
+/* Positioning */
+.bottom-5 { bottom: 1.25rem; }
+.right-5 { right: 1.25rem; }
+.left-5 { left: 1.25rem; }
+.top-5 { top: 1.25rem; }
+
+/* Sizing */
+.w-14 { width: 3.5rem; }
+.h-14 { height: 3.5rem; }
+.h-2 { height: 0.5rem; }
+.w-0 { width: 0; }
+.h-0 { height: 0; }
+
+/* Pointer events */
+.pointer-events-none { pointer-events: none; }
+
+/* Opacity */
+.opacity-0 { opacity: 0; }
+.opacity-100 { opacity: 1; }
+
+/*===========================================
+  TOOLTIP COMPONENT STYLES
+  ===========================================*/
+
+/* Tooltip Base Styles */
+.guided-tour-tooltip {
+  pointer-events: auto;
+  transform-origin: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Accessibility */
-.guided-tour-button:focus-visible,
-.guided-tour-toggle-button:focus-visible {
+/* Animation states */
+.guided-tour-tooltip-hidden {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.guided-tour-tooltip-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Directional animations */
+.guided-tour-tooltip-bottom.guided-tour-tooltip-hidden {
+  transform: scale(0.85) translateY(-20px);
+}
+
+.guided-tour-tooltip-top.guided-tour-tooltip-hidden {
+  transform: scale(0.85) translateY(20px);
+}
+
+.guided-tour-tooltip-left.guided-tour-tooltip-hidden {
+  transform: scale(0.85) translateX(20px);
+}
+
+.guided-tour-tooltip-right.guided-tour-tooltip-hidden {
+  transform: scale(0.85) translateX(-20px);
+}
+
+/* Card styles */
+.guided-tour-card {
+  animation: tooltipSlideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Progress bar animation */
+.guided-tour-progress-bar {
+  animation: progressGrow 0.3s ease-out;
+}
+
+@keyframes progressGrow {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Button hover effects */
+.guided-tour-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+.guided-tour-button:active {
+  transform: scale(0.95);
+}
+
+.guided-tour-button-next {
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2),
+              0 2px 4px -1px rgba(59, 130, 246, 0.1);
+}
+
+.guided-tour-button-next:hover {
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3),
+              0 4px 6px -2px rgba(59, 130, 246, 0.2);
+}
+
+/* Arrow styles */
+.guided-tour-arrow {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.guided-tour-arrow.arrow-top {
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid currentColor;
+}
+
+.guided-tour-arrow.arrow-bottom {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid currentColor;
+}
+
+.guided-tour-arrow.arrow-left {
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid currentColor;
+}
+
+.guided-tour-arrow.arrow-right {
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid currentColor;
+}
+
+.guided-tour-arrow.arrow-light {
+  color: white;
+}
+
+.guided-tour-arrow.arrow-dark {
+  color: rgb(31, 41, 55); /* gray-800 */
+}
+
+/* Chip animation */
+.guided-tour-chip {
+  animation: chipPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes chipPop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*===========================================
+  OVERLAY COMPONENT STYLES
+  ===========================================*/
+
+/* Overlay Base Styles */
+.guided-tour-overlay {
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Backdrop animation */
+.guided-tour-overlay-backdrop {
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mask cutout animation */
+.guided-tour-mask-cutout {
+  animation: cutoutScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cutoutScale {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pulse ring animation */
+.guided-tour-pulse-ring {
+  animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform-origin: center;
+}
+
+@keyframes pulseRing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Performance optimization */
+.guided-tour-overlay svg {
+  will-change: transform;
+}
+
+.guided-tour-pulse-ring {
+  will-change: transform, opacity;
+}
+
+/*===========================================
+  TOGGLE BUTTON COMPONENT STYLES
+  ===========================================*/
+
+/* Toggle Button Base Styles */
+.guided-tour-toggle {
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.guided-tour-toggle-hidden {
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+}
+
+.guided-tour-toggle-visible {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  animation: toggleBounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s both;
+}
+
+@keyframes toggleBounceIn {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Button wrapper with pulse effect */
+.guided-tour-toggle-wrapper {
+  position: relative;
+  border-radius: 50%;
+}
+
+.guided-tour-toggle-pulse {
+  animation: togglePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes togglePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(59, 130, 246, 0.2);
+  }
+}
+
+/* Button styles */
+.guided-tour-toggle-button {
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.guided-tour-toggle-button:hover {
+  transform: scale(1.1);
+}
+
+.guided-tour-toggle-button:active {
+  transform: scale(0.9);
+}
+
+.guided-tour-toggle-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.guided-tour-toggle-button:active::before {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon animation */
+.guided-tour-icon {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Badge styles */
+.guided-tour-badge {
+  animation: badgeBounce 1s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+@keyframes badgeBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Focus visible for accessibility */
+.guided-tour-toggle-button:focus-visible,
+.guided-tour-button:focus-visible {
   outline: 2px solid #60a5fa;
   outline-offset: 2px;
+}
+
+/* Hover glow effect */
+.guided-tour-toggle-button:hover {
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4),
+              0 6px 6px rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .guided-tour-tooltip {
+    width: calc(100vw - 32px) !important;
+    max-width: 360px;
+  }
 }
 
 /* Prevent body scroll when tour is active (optional) */

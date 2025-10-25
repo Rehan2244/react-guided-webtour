@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2025-10-25
+
+### Fixed
+- ✅ **CSS Bundling Issue** - All component styles now bundled into single `style.css` file
+- ✅ **Tailwind CSS Classes** - Replaced Tailwind utility classes with embedded CSS (no external Tailwind dependency needed)
+- ✅ **AutoStart Functionality** - Fixed useEffect dependency array for proper autoStart behavior
+- ✅ **Import Errors** - Removed individual CSS imports from components (now bundled in main stylesheet)
+
+### Changed
+- 📦 CSS file size increased from 5.1KB to 8.2KB (includes all Tailwind utilities needed)
+- 🎨 All Tailwind utility classes now defined in the main stylesheet
+- 🔧 Component CSS imports removed (styles loaded from lib/styles.css)
+
+### Technical Details
+- Components no longer import individual CSS files
+- All styles consolidated in `src/lib/styles.css`
+- Tailwind utility classes (flex, grid, padding, etc.) embedded as regular CSS
+- Fixed React hook dependency warnings
+
 ## [2.0.0] - 2025-10-25
 
 ### 🎉 Major Rewrite - Zero Dependencies!

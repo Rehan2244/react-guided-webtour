@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
-import './Tooltip.css';
 
 const Tooltip = ({
   step,

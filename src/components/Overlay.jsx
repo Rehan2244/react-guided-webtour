@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Overlay.css';
 
 const Overlay = ({ isActive, targetRect, padding = 10, borderRadius = 8, pulseAnimation = true }) => {
   const [isVisible, setIsVisible] = useState(false);

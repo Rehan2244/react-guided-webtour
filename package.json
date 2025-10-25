@@ -1,6 +1,6 @@
 {
   "name": "react-guided-webtour",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Interactive guided tour component for React with vanilla JavaScript animations (zero dependencies)",
   "private": false,
   "type": "module",
