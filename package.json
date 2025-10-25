@@ -1,17 +1,20 @@
 {
   "name": "react-guided-webtour",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Interactive guided tour component for React with HeroUI",
   "private": false,
   "type": "module",
-  "main": "./dist/react-guided-tour.umd.js",
-  "module": "./dist/react-guided-tour.es.js",
+  "main": "./dist/react-guided-webtour.umd.js",
+  "module": "./dist/react-guided-webtour.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/react-guided-tour.es.js",
-      "require": "./dist/react-guided-tour.umd.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/react-guided-webtour.es.js",
+      "require": "./dist/react-guided-webtour.umd.js"
     },
-    "./dist/style.css": "./dist/react-guided-tour.css"
+    "./style.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css"
   },
   "files": [
     "dist",
@@ -20,10 +23,12 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build -c vite.lib.config.js",
+    "build": "vite build -c vite.lib.config.js && npm run postbuild",
+    "postbuild": "node scripts/copy-types.js",
     "build:demo": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "validate": "node scripts/validate-package.js",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {

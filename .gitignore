@@ -1,4 +1,5 @@
 node_modules
 dist/
 PUBLISHING.md
+BUILD_SUMMARY.md
 validate-package.bat

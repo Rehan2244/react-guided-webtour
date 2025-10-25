@@ -12,9 +12,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/lib/index.js'),
-      name: 'ReactGuidedTour',
+      name: 'ReactGuidedWebTour',
       formats: ['es', 'umd'],
-      fileName: (format) => `react-guided-tour.${format}.js`
+      fileName: (format) => `react-guided-webtour.${format}.js`
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime', '@heroui/react', 'framer-motion', 'clsx'],
@@ -29,7 +29,7 @@ export default defineConfig({
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') {
-            return 'react-guided-tour.css'
+            return 'style.css'
           }
           return assetInfo.name
         }
