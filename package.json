@@ -1,21 +1,39 @@
 {
   "name": "react-guided-webtour",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Interactive guided tour component for React with HeroUI",
   "private": false,
   "type": "module",
+  "main": "./dist/react-guided-tour.umd.js",
+  "module": "./dist/react-guided-tour.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-guided-tour.es.js",
+      "require": "./dist/react-guided-tour.umd.js"
+    },
+    "./dist/style.css": "./dist/react-guided-tour.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build -c vite.lib.config.js",
+    "build:demo": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "dependencies": {
     "@heroui/react": "^2.4.24",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.11.17",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "framer-motion": "^11.11.17"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -27,10 +45,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.47",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.15",
     "vite": "^5.2.0"
   },
-  "main": "src/main.jsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rehan2244/react-guided-webtour.git"
@@ -40,7 +59,13 @@
     "react-webtour",
     "webtour",
     "react-guided-webtour",
-    "react-webtour"
+    "react-webtour",
+    "guided-tour",
+    "tour",
+    "onboarding",
+    "tutorial",
+    "walkthrough",
+    "react-component"
   ],
   "author": "Rehan2244",
   "license": "ISC",

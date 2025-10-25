@@ -1,0 +1,47 @@
+# Development files
+src/
+!src/lib/
+node_modules/
+.git/
+.gitignore
+
+# Config files
+vite.config.js
+vite.lib.config.js
+postcss.config.js
+tailwind.config.js
+.eslintrc.cjs
+
+# Demo files
+index.html
+public/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Build artifacts (keep dist for package)
+# Exclude everything except dist
+*
+!dist/**
+!README.md
+!LICENSE
+!package.json
+PUBLISHING.md
+validate-package.bat

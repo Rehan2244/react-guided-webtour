@@ -25,7 +25,29 @@ npm install react-guided-webtour
 yarn add react-guided-webtour
 ```
 
+```bash
+pnpm add react-guided-webtour
+```
+
+> **Note:** Make sure you have `react` and `react-dom` (v18.0.0 or higher) installed as peer dependencies.
+
 ## 🚀 Quick Start
+
+### Installation
+
+First, install the package and its peer dependencies:
+
+```bash
+npm install react-guided-webtour @heroui/react framer-motion clsx
+```
+
+### Import Styles
+
+Import the CSS in your main app file or component:
+
+```jsx
+import 'react-guided-webtour/dist/react-guided-tour.css';
+```
 
 ### Basic Usage
 

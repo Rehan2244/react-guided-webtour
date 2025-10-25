@@ -1,0 +1,63 @@
+/* React Guided WebTour Styles */
+
+/* Base styles */
+:root {
+  --tour-overlay-bg: rgba(0, 0, 0, 0.5);
+  --tour-z-index: 9998;
+  --tour-tooltip-z-index: 9999;
+}
+
+/* Overlay styles */
+.guided-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--tour-z-index);
+  pointer-events: none;
+}
+
+/* Tooltip styles */
+.guided-tour-tooltip {
+  position: fixed;
+  z-index: var(--tour-tooltip-z-index);
+  max-width: 360px;
+}
+
+/* Toggle button styles */
+.guided-tour-toggle {
+  position: fixed;
+  z-index: var(--tour-tooltip-z-index);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.guided-tour-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* Progress bar */
+.guided-tour-progress {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Animation utilities */
+.tour-fade-enter {
+  opacity: 0;
+}
+
+.tour-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.tour-fade-exit {
+  opacity: 1;
+}
+
+.tour-fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
